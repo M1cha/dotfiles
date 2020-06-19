@@ -188,7 +188,7 @@ Wildcards=
 [Agda]
 Highlighting=Agda
 Highlighting Generated=true
-Highlighting Version=5
+Highlighting Version=6
 Indenter=none
 Mimetypes=text/x-agda;
 Priority=0
@@ -331,7 +331,7 @@ Wildcards=*.brs;
 [C]
 Highlighting=C
 Highlighting Generated=true
-Highlighting Version=7
+Highlighting Version=8
 Indenter=none
 Mimetypes=text/x-csrc;text/x-c++src;text/x-chdr;
 Priority=5
@@ -386,7 +386,7 @@ Wildcards=*.clist;*.CLIST;
 [CMake]
 Highlighting=CMake
 Highlighting Generated=true
-Highlighting Version=20
+Highlighting Version=22
 Indenter=none
 Mimetypes=text/x-cmake;
 Priority=0
@@ -628,7 +628,7 @@ Wildcards=*.dtd;
 [Debian Changelog]
 Highlighting=Debian Changelog
 Highlighting Generated=true
-Highlighting Version=9
+Highlighting Version=10
 Indenter=none
 Mimetypes=
 Priority=0
@@ -705,7 +705,7 @@ Wildcards=*.dox;*.doxygen;
 [DoxygenLua]
 Highlighting=DoxygenLua
 Highlighting Generated=true
-Highlighting Version=6
+Highlighting Version=7
 Indenter=none
 Mimetypes=
 Priority=0
@@ -1241,6 +1241,17 @@ Section=Sources
 Variables=kate:\s
 Wildcards=*.inf;*.h;
 
+[InnoSetup]
+Highlighting=InnoSetup
+Highlighting Generated=true
+Highlighting Version=1
+Indenter=none
+Mimetypes=
+Priority=0
+Section=Other
+Variables=kate:\s
+Wildcards=*.iss;
+
 [Intel HEX]
 Highlighting=Intel HEX
 Highlighting Generated=true
@@ -1497,7 +1508,7 @@ Wildcards=*.lsl;
 [LaTeX]
 Highlighting=LaTeX
 Highlighting Generated=true
-Highlighting Version=11
+Highlighting Version=13
 Indenter=none
 Mimetypes=text/x-tex;
 Priority=10
@@ -1563,7 +1574,7 @@ Wildcards=*.logcat;
 [Logtalk]
 Highlighting=Logtalk
 Highlighting Generated=true
-Highlighting Version=3
+Highlighting Version=4
 Indenter=none
 Mimetypes=text/x-logtalk;
 Priority=0
@@ -1574,7 +1585,7 @@ Wildcards=*.lgt;.logtalk;
 [Lua]
 Highlighting=Lua
 Highlighting Generated=true
-Highlighting Version=7
+Highlighting Version=9
 Indenter=none
 Mimetypes=text/x-lua;
 Priority=0
@@ -1771,7 +1782,7 @@ Wildcards=*.mm;
 [Metapost/Metafont]
 Highlighting=Metapost/Metafont
 Highlighting Generated=true
-Highlighting Version=5
+Highlighting Version=6
 Indenter=none
 Mimetypes=text/x-metapost;
 Priority=0
@@ -2053,6 +2064,17 @@ Priority=1
 Section=3D
 Variables=kate:\s
 Wildcards=*.scad;
+
+[Overpass QL]
+Highlighting=Overpass QL
+Highlighting Generated=true
+Highlighting Version=1
+Indenter=none
+Mimetypes=
+Priority=0
+Section=Other
+Variables=kate:\s
+Wildcards=*.overpassql;
 
 [PGN]
 Highlighting=PGN
@@ -2540,7 +2562,7 @@ Wildcards=*.rs;
 [SASS]
 Highlighting=SASS
 Highlighting Generated=true
-Highlighting Version=1
+Highlighting Version=2
 Indenter=none
 Mimetypes=text/css;
 Priority=5
@@ -2650,7 +2672,7 @@ Wildcards=*.sql;*.SQL;*.ddl;*.DDL;*.trg;*.TRG;*.spc;*.SPC;*.bdy;*.DBY;
 [SQL (PostgreSQL)]
 Highlighting=SQL (PostgreSQL)
 Highlighting Generated=true
-Highlighting Version=7
+Highlighting Version=8
 Indenter=none
 Mimetypes=text/x-sql;
 Priority=0
@@ -2936,7 +2958,7 @@ Wildcards=*.1;*.2;*.3;*.4;*.5;*.6;*.7;*.8;*.1m;*.3x;*.tmac;
 [TypeScript]
 Highlighting=TypeScript
 Highlighting Generated=true
-Highlighting Version=9
+Highlighting Version=10
 Indenter=none
 Mimetypes=text/typescript;application/typescript;text/x-typescript;application/x-typescript;
 Priority=9
@@ -2969,7 +2991,7 @@ Wildcards=*.uc;
 [VHDL]
 Highlighting=VHDL
 Highlighting Generated=true
-Highlighting Version=7
+Highlighting Version=8
 Indenter=none
 Mimetypes=text/x-vhdl;
 Priority=0
