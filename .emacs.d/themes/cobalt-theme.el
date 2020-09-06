@@ -45,7 +45,7 @@
                 (whitespace-tab ((t (:foreground ,bluish_grey))))
                 (whitespace-trailing ((t (:foreground ,bluish_grey))))
                 (whitespace-highlight-face ((t (:foreground ,bluish_grey))))
-                (whitespace-line ((t (:foreground ,bluish_grey))))
+                (whitespace-line ((t (:background ,"#333333"))))
                 (whitespace-newline ((t (:foreground ,bluish_grey))))
 
                 ; Bracket Matching
