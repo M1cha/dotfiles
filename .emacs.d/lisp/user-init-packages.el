@@ -8,4 +8,7 @@
 ; rust
 (require 'rust-mode)
 ; use spaces instead of tabs
-(add-hook 'rust-mode-hook (lambda () (setq indent-tabs-mode nil)))
+(add-hook 'rust-mode-hook (lambda ()
+    (setq indent-tabs-mode nil)
+    (setq whitespace-line-column 99)
+))
