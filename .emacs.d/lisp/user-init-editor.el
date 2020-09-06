@@ -17,6 +17,7 @@
 ; cursor position
 (global-display-line-numbers-mode)
 (column-number-mode)
+(global-hl-line-mode 1)
 
 ; cursor
 (setq-default cursor-type 'bar)
