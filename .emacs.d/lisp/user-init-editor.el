@@ -30,3 +30,6 @@
 
 ; highlight: always use default face
 (setq hi-lock-auto-select-face 1)
+
+; highlight numbers
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
