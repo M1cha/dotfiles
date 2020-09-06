@@ -24,7 +24,6 @@
 
 ; show all whitespace
 (global-whitespace-mode +1)
-(setq whitespace-style (delete 'lines whitespace-style))
 
 ; highlight matching brackets
 (setq show-paren-delay 0)
