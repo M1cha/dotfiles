@@ -6,6 +6,9 @@
 (load-library "user-init-editor")
 (load-library "user-init-packages")
 
+(load-theme 'cobalt t t)
+(enable-theme 'cobalt)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
