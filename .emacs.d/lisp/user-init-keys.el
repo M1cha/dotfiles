@@ -19,6 +19,21 @@
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (global-set-key "\C-t" 'tab-new)
 (global-set-key "\C-a" 'mark-whole-buffer)
+(global-set-key "\C-s" 'save-buffer)
+
+; isearch
+(global-set-key "\C-w" 'isearch-backward)
+(global-set-key "\C-e" 'isearch-forward)
+(global-set-key "\M-\C-w" 'isearch-backward-regexp)
+(global-set-key "\M-\C-e" 'isearch-forward-regexp)
+(add-hook 'isearch-mode-hook
+    (lambda ()
+        (define-key isearch-mode-map "\C-w" 'isearch-repeat-backward)
+        (define-key isearch-mode-map "\C-e" 'isearch-repeat-forward)
+        (define-key isearch-mode-map "\M-\C-w" 'isearch-repeat-backward)
+        (define-key isearch-mode-map "\M-\C-e" 'isearch-repeat-forward)
+    )
+)
 
 ; TODO: make CTRL-C/X/V work on the X clipboard after disabling automatic sharing
 ;(setq mouse-drag-copy-region nil)
