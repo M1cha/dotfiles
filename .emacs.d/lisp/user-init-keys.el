@@ -22,12 +22,18 @@
 (global-set-key "\C-s" 'save-buffer)
 
 ; isearch
+(global-set-key "\C-r" nil)
 (global-set-key "\C-w" 'isearch-backward)
 (global-set-key "\C-e" 'isearch-forward)
 (global-set-key "\M-\C-w" 'isearch-backward-regexp)
 (global-set-key "\M-\C-e" 'isearch-forward-regexp)
 (add-hook 'isearch-mode-hook
     (lambda ()
+        (define-key isearch-mode-map "\C-r" nil)
+        (define-key isearch-mode-map "\C-s" nil)
+        (define-key isearch-mode-map "\M-\C-r" nil)
+        (define-key isearch-mode-map "\M-\C-s" nil)
+
         (define-key isearch-mode-map "\C-w" 'isearch-repeat-backward)
         (define-key isearch-mode-map "\C-e" 'isearch-repeat-forward)
         (define-key isearch-mode-map "\M-\C-w" 'isearch-repeat-backward)
