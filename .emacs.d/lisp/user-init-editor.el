@@ -34,3 +34,6 @@
 
 ; highlight numbers
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
+
+; autorevert
+(global-auto-revert-mode t)
