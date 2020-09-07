@@ -20,6 +20,7 @@
 (global-set-key "\C-t" 'tab-new)
 (global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-s" 'save-buffer)
+(define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
 
 ; isearch
 (global-set-key "\C-r" nil)
