@@ -18,6 +18,7 @@
 
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (global-set-key "\C-t" 'tab-new)
+(global-set-key "\C-a" 'mark-whole-buffer)
 
 ; TODO: make CTRL-C/X/V work on the X clipboard after disabling automatic sharing
 ;(setq mouse-drag-copy-region nil)
