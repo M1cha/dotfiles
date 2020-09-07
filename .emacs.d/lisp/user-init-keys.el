@@ -42,10 +42,8 @@
     )
 )
 
-; TODO: make CTRL-C/X/V work on the X clipboard after disabling automatic sharing
-;(setq mouse-drag-copy-region nil)
-;(setq x-select-enable-clipboard nil)
-;(setq x-select-enable-primary nil)
+; don't copy selections automatically
+(setq mouse-drag-copy-region nil)
 
 ; isearch selected region, unhighlight everything when there's no selection
 ; based on: https://stackoverflow.com/a/32002122/2035624
