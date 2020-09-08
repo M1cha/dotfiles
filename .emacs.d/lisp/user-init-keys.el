@@ -15,6 +15,9 @@
 
 ; enable CTRL+C/X/V
 (cua-mode 1)
+(setq cua-auto-tabify-rectangles nil)
+(transient-mark-mode 1)
+(setq cua-keep-region-after-copy t)
 
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (global-set-key "\C-t" 'tab-new)
