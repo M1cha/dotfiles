@@ -5,10 +5,31 @@
     (let* (
             (tabs (funcall tab-bar-tabs-function))
             (current-tab (assq 'current-tab tabs))
+            (kill-buffer-name nil)
+            (ntabs-for-buf 0)
         )
+
         (if (eq tab current-tab)
-            (not (kill-buffer))
-            (not (kill-buffer (nth 0 (alist-get 'wc-bl tab))))
+            (setq kill-buffer-name (current-buffer))
+            (setq kill-buffer-name (nth 0 (alist-get 'wc-bl tab)))
+        )
+
+        (cl-loop for tab in tabs do
+            (let ((bufname nil))
+                (if (eq tab current-tab)
+                    (setq bufname (current-buffer))
+                    (setq bufname (nth 0 (alist-get 'wc-bl tab)))
+                )
+
+                (if (eq bufname kill-buffer-name)
+                    (setq ntabs-for-buf (1+ ntabs-for-buf))
+                )
+            )
+        )
+
+        (if (> ntabs-for-buf 1)
+            nil
+            (not (kill-buffer kill-buffer-name))
         )
     )
 )
