@@ -86,3 +86,11 @@
     )
 )
 (add-hook 'isearch-update-post-hook 'user-isearch-update-post-hook)
+
+; replace
+(defun user-replace()
+    (interactive)
+    (beginning-of-buffer)
+    (call-interactively 'replace-string)
+)
+(global-set-key "\C-r" 'user-replace)
