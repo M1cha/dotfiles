@@ -49,6 +49,7 @@
 ; based on: https://stackoverflow.com/a/32002122/2035624
 (defun user-isearch-with-region ()
     (interactive)
+    (unhighlight-regexp t)
     (if mark-active
         (let ((region (funcall region-extract-function nil)))
             ; stay at the current match
@@ -59,18 +60,25 @@
             (isearch-mode t nil nil nil)
             (isearch-yank-string region)
         )
-        (unhighlight-regexp t)
+        (isearch-forward)
     )
 )
-(global-set-key "\C-f" 'user-isearch-with-region)
+
+(defun user-isearch-paste ()
+    (interactive)
+    (isearch-yank-string (current-kill 0))
+)
 
 ; highlight search string so it stays highlighted after scrolling
 (defun user-isearch-update-post-hook()
+    (unhighlight-regexp t)
     (when isearch-success
         (let* ((string isearch-string))
             (when (>= (length string) 1)
-                (unhighlight-regexp t)
-                (highlight-regexp (regexp-quote string))
+                (if isearch-regexp
+                    (highlight-regexp string)
+                    (highlight-regexp (regexp-quote string))
+                )
             )
         )
     )
