@@ -1,6 +1,13 @@
 ; tabline
 (setq tab-line-close-tab-function #'kill-buffer)
 (global-tab-line-mode 1)
+(set-face-attribute 'tab-line nil :height 110)
+(let ((image (get-text-property 0 'display tab-line-close-button)))
+    (setf (image-property image :scale) 2.0)
+)
+(let ((image (get-text-property 0 'display tab-line-new-button)))
+    (setf (image-property image :scale) 2.0)
+)
 
 ; cursor position
 (global-display-line-numbers-mode)
