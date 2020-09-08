@@ -12,13 +12,3 @@
 
 ; server
 (server-start)
-(defun user-open-files (files)
-    (cl-loop for file in files
-        do (progn
-            (x-focus-frame (selected-frame))
-            (select-frame-set-input-focus (selected-frame))
-            (tab-new)
-            (find-file file)
-        )
-    )
-)

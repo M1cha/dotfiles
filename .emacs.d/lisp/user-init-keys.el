@@ -20,7 +20,6 @@
 (setq cua-keep-region-after-copy t)
 
 (global-set-key "\C-x\C-b" 'buffer-menu)
-(global-set-key "\C-t" 'tab-new)
 (global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-s" 'save-buffer)
 (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)

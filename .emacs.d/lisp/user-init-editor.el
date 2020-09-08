@@ -1,39 +1,6 @@
-; tabbar
-(tab-bar-mode)
-; kill buffer on tab-close
-(defun user-prevent-close (tab last)
-    (let* (
-            (tabs (funcall tab-bar-tabs-function))
-            (current-tab (assq 'current-tab tabs))
-            (kill-buffer-name nil)
-            (ntabs-for-buf 0)
-        )
-
-        (if (eq tab current-tab)
-            (setq kill-buffer-name (current-buffer))
-            (setq kill-buffer-name (nth 0 (alist-get 'wc-bl tab)))
-        )
-
-        (cl-loop for tab in tabs do
-            (let ((bufname nil))
-                (if (eq tab current-tab)
-                    (setq bufname (current-buffer))
-                    (setq bufname (nth 0 (alist-get 'wc-bl tab)))
-                )
-
-                (if (eq bufname kill-buffer-name)
-                    (setq ntabs-for-buf (1+ ntabs-for-buf))
-                )
-            )
-        )
-
-        (if (> ntabs-for-buf 1)
-            nil
-            (not (kill-buffer kill-buffer-name))
-        )
-    )
-)
-(add-hook 'tab-bar-tab-prevent-close-functions 'user-prevent-close)
+; tabline
+(setq tab-line-close-tab-function #'kill-buffer)
+(global-tab-line-mode 1)
 
 ; cursor position
 (global-display-line-numbers-mode)
@@ -58,3 +25,5 @@
 
 ; autorevert
 (global-auto-revert-mode t)
+
+(setq inhibit-startup-screen t)
