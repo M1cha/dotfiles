@@ -93,3 +93,11 @@
     (call-interactively 'replace-string)
 )
 (global-set-key "\C-r" 'user-replace)
+
+(defun user-sci()
+    (interactive)
+    (save-buffer)
+    (kill-buffer)
+    (iconify-frame)
+)
+(global-set-key "\M-\C-s" 'user-sci)
