@@ -33,6 +33,21 @@
 (global-set-key "\M-\C-s" nil)
 (global-set-key "\C-f" 'user-isearch-with-region)
 (global-set-key "\M-\C-f" 'isearch-forward-regexp)
+
+(defun user-ctrl-g ()
+    (interactive)
+    (isearch-mode t isearch-regexp nil nil)
+    (isearch-repeat-forward)
+)
+(global-set-key "\C-g" 'user-ctrl-g)
+
+(defun user-ctrl-shift-g ()
+    (interactive)
+    (isearch-mode nil isearch-regexp nil nil)
+    (isearch-repeat-backward)
+)
+(global-set-key [?\C-\S-g] 'user-ctrl-shift-g)
+
 (add-hook 'isearch-mode-hook
     (lambda ()
         (define-key isearch-mode-map "\C-g" 'isearch-repeat-forward)
