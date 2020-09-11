@@ -68,13 +68,13 @@
 )
 
 ;;;###autoload
-(defun smart-tab-indent (start end)
-    (interactive "r")
+(defun smart-tab-indent ()
+    (interactive)
     (cond
         ((use-region-p)
             (save-restriction
                 (widen)
-                (smart-tab-indent-region start end)
+                (smart-tab-indent-region (region-beginning) (region-end))
             )
         )
         (t (smart-tab-insert-indentation))
@@ -82,13 +82,13 @@
     (setq deactivate-mark nil)
 )
 
-(defun smart-tab-unindent (start end)
-    (interactive "r")
+(defun smart-tab-unindent ()
+    (interactive)
     (cond
         ((use-region-p)
             (save-restriction
                 (widen)
-                (smart-tab-unindent-region start end)
+                (smart-tab-unindent-region (region-beginning) (region-end))
             )
         )
         (t
