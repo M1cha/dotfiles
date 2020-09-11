@@ -13,6 +13,14 @@
 ; allow arbitrary indentation
 (setq tab-always-indent nil)
 
+(setq backward-delete-char-untabify-method nil)
+(require 'smart-tab)
+(global-smart-tab-mode 1)
+
+; default indentation settings
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
 ; enable CTRL+C/X/V
 (cua-mode 1)
 (setq cua-auto-tabify-rectangles nil)
