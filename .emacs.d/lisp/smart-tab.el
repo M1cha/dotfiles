@@ -8,10 +8,31 @@
   :group 'smart-tab)
 
 (defun smart-tab-insert-indentation ()
-  (cond
-    (indent-tabs-mode (insert-char 9 1))
-    (t (insert-char 32 tab-width))
-  )
+    (cond
+        (indent-tabs-mode (insert-char 9 1))
+        (t (insert-char 32 tab-width))
+    )
+)
+
+(defun smart-tab-remove-indentation ()
+    (let* (
+              (start (point))
+              (nskipped (cond
+                  (indent-tabs-mode (progn (skip-chars-forward "\t" (+ (point) 1))))
+                  (t (progn (skip-chars-forward " " (+ (point) tab-width))))
+              ))
+              (nskipped (cond
+                  ((eq nskipped 0) (cond
+                      (indent-tabs-mode (progn (skip-chars-forward " " (+ (point) tab-width))))
+                      (t (progn (skip-chars-forward "\t" (+ (point) 1))))
+                  ))
+                  (t nskipped)
+              ))
+              (end (point))
+          )
+
+          (delete-region start end)
+    )
 )
 
 (defun smart-tab-indent-region (start end)
@@ -38,7 +59,7 @@
         (or (bolp) (move-beginning-of-line nil))
 
         (while (< (point) end)
-            ; TODO
+            (smart-tab-remove-indentation)
             (forward-line 1)
         )
 
@@ -63,12 +84,21 @@
 
 (defun smart-tab-unindent (start end)
     (interactive "r")
-
-    (save-restriction
-        (widen)
-        (smart-tab-unindent-region start end)
+    (cond
+        ((use-region-p)
+            (save-restriction
+                (widen)
+                (smart-tab-unindent-region start end)
+            )
+        )
+        (t
+            (save-restriction (save-excursion
+                (widen)
+                (or (bolp) (move-beginning-of-line nil))
+                (smart-tab-remove-indentation)
+            ))
+        )
     )
-
     (setq deactivate-mark nil)
 )
 
