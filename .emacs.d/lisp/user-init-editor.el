@@ -48,3 +48,22 @@
 ))
 
 (delete-selection-mode 1)
+
+; highlight keywords
+(global-hl-todo-mode t)
+(setq hl-todo-keyword-faces
+  '(("HOLD" . "#ffbc00")
+    ("TODO" . "#ff0000")
+    ("NEXT" . "#ff0000")
+    ("THEM" . "#ff00af")
+    ("PROG" . "#00f3ff")
+    ("OKAY" . "#00f3ff")
+    ("DONT" . "#00ff00")
+    ("FAIL" . "#ff0000")
+    ("DONE" . "#00ff00")
+    ("NOTE"   . "#ffbc00")
+    ("KLUDGE" . "#ffbc00")
+    ("HACK"   . "#ffbc00")
+    ("TEMP"   . "#ffbc00")
+    ("FIXME"  . "#ff0000")
+    ("XXX+"   . "#ff0000")))
