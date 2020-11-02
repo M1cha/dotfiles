@@ -46,3 +46,5 @@
     (define-key markdown-mode-map (kbd "<S-tab>") nil)
     (define-key markdown-mode-map (kbd "<backtab>") nil)
 ))
+
+(delete-selection-mode 1)
