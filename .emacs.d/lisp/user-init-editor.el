@@ -38,3 +38,11 @@
 (add-hook 'python-mode-hook (lambda ()
     (setq tab-width 4)
 ))
+
+(add-hook 'markdown-mode-hook (lambda ()
+    (setq markdown-indent-on-enter nil)
+    (define-key markdown-mode-map (kbd "TAB") nil)
+    (define-key markdown-mode-map (kbd "<S-iso-lefttab>") nil)
+    (define-key markdown-mode-map (kbd "<S-tab>") nil)
+    (define-key markdown-mode-map (kbd "<backtab>") nil)
+))
