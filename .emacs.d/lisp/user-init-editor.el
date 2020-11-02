@@ -34,3 +34,7 @@
 (global-auto-revert-mode t)
 
 (setq inhibit-startup-screen t)
+
+(add-hook 'python-mode-hook (lambda ()
+    (setq tab-width 4)
+))
