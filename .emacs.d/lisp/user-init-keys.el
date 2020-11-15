@@ -23,9 +23,18 @@
 
 ; enable CTRL+C/X/V
 (cua-mode 1)
+(cua-selection-mode t)
 (setq cua-auto-tabify-rectangles nil)
 (transient-mark-mode 1)
 (setq cua-keep-region-after-copy t)
+
+; copy paste
+(global-set-key "\C-b" 'kill-region)
+(global-set-key "\C-n" 'kill-ring-save)
+(global-set-key "\C-v" 'yank)
+
+; undo
+(global-set-key "\C-z" 'undo)
 
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (global-set-key "\C-a" 'mark-whole-buffer)
@@ -124,3 +133,9 @@
     (iconify-frame)
 )
 (global-set-key "\M-\C-s" 'user-sci)
+
+; rebind modifier keys so they can be used for copy&paste
+(keyboard-translate ?\C-b ?\C-x)
+(keyboard-translate ?\C-x ?\C-b)
+(keyboard-translate ?\C-n ?\C-c)
+(keyboard-translate ?\C-c ?\C-n)
