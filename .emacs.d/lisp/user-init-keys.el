@@ -36,7 +36,7 @@
 ; undo
 (global-set-key "\C-z" 'undo)
 
-(global-set-key "\C-x\C-b" 'buffer-menu)
+(global-set-key "\C-x\C-x" 'buffer-menu)
 (global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-s" 'save-buffer)
 (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
