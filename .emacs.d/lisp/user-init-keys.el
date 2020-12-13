@@ -139,3 +139,16 @@
 (keyboard-translate ?\C-x ?\C-b)
 (keyboard-translate ?\C-n ?\C-c)
 (keyboard-translate ?\C-c ?\C-n)
+
+; make dired work like a normal file browser
+(require 'dired)
+(put 'dired-find-alternate-file 'disabled nil)
+
+(defun user-dired-mouse-find-file-same-window (event)
+    (interactive "e")
+    (dired-mouse-find-file event 'find-file 'find-alternate-file)
+)
+(define-key dired-mode-map [mouse-2] 'user-dired-mouse-find-file-same-window)
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
+(define-key dired-mode-map [mouse-8] (lambda () (interactive) (find-alternate-file "..")))
+(define-key dired-mode-map [drag-mouse-8] (lambda () (interactive) (find-alternate-file "..")))
