@@ -5,6 +5,7 @@
 (load-library "user-init-keys")
 (load-library "user-init-editor")
 (load-library "user-init-packages")
+(load-library "user-init-functions")
 
 (load-theme 'cobalt t t)
 (enable-theme 'cobalt)
