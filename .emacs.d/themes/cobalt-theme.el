@@ -43,7 +43,7 @@
                 (whitespace-space-after-tab ((t (:foreground ,bluish_grey))))
                 (whitespace-space-before-tab ((t (:foreground ,bluish_grey))))
                 (whitespace-tab ((t (:foreground ,bluish_grey))))
-                (whitespace-trailing ((t (:foreground ,bluish_grey))))
+                (whitespace-trailing ((t (:foreground ,bluish_grey :background ,nail_polish_pink))))
                 (whitespace-highlight-face ((t (:foreground ,bluish_grey))))
                 (whitespace-line ((t (:background ,"#333333"))))
                 (whitespace-newline ((t (:foreground ,bluish_grey))))
