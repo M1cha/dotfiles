@@ -47,6 +47,11 @@
     (define-key markdown-mode-map (kbd "<backtab>") nil)
 ))
 
+(setq latex-run-command "pdflatex")
+(setq tex-print-file-extension ".pdf")
+(setq tex-fontify-script nil)
+(setq tex-dvi-view-command "okular")
+
 (delete-selection-mode 1)
 
 (when (require 'hl-todo nil 'noerror)
