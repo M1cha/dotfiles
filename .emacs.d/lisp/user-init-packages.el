@@ -17,3 +17,18 @@
 (add-hook 'c-mode-hook (lambda ()
     (local-set-key (kbd "C-c C-f") #'clang-format-buffer)
 ))
+
+(require 'python-black)
+
+;;;###autoload (autoload 'python-isort-buffer "python-isort" nil t)
+(reformatter-define python-isort
+  :program "isort"
+  :args '("-")
+  :lighter " isort")
+
+(add-hook 'python-mode-hook (lambda ()
+    (local-set-key (kbd "C-c C-f") (lambda () (interactive)
+        (python-black-buffer)
+        (python-isort-buffer)
+    ))
+))
