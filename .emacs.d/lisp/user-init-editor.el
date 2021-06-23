@@ -37,6 +37,8 @@
 
 (add-hook 'python-mode-hook (lambda ()
     (setq tab-width 4)
+    (define-key python-mode-map "\177" nil)
+    (define-key python-mode-map (kbd "<backtab>") nil)
 ))
 
 (add-hook 'markdown-mode-hook (lambda ()
