@@ -49,6 +49,16 @@
     (define-key markdown-mode-map (kbd "<backtab>") nil)
 ))
 
+(add-hook 'yaml-mode-hook (lambda ()
+    (setq tab-width 2)
+
+    (define-key yaml-mode-map "|" nil)
+    (define-key yaml-mode-map ">" nil)
+    (define-key yaml-mode-map "-" nil)
+    (define-key yaml-mode-map "." nil)
+    (define-key yaml-mode-map (kbd "DEL") nil)
+))
+
 (setq latex-run-command "pdflatex")
 (setq tex-print-file-extension ".pdf")
 (setq tex-fontify-script nil)
