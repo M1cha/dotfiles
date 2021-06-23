@@ -35,6 +35,13 @@
     )
 )
 
+(defun current-line-empty-p ()
+    (save-excursion
+        (beginning-of-line)
+        (looking-at-p "[[:space:]]*$")
+    )
+)
+
 (defun smart-tab-indent-region (start end)
     (save-excursion
         (setq end (copy-marker end))
@@ -43,7 +50,10 @@
         (or (bolp) (move-beginning-of-line nil))
 
         (while (< (point) end)
-            (smart-tab-insert-indentation)
+            (cond
+                ((current-line-empty-p))
+                (t (smart-tab-insert-indentation))
+            )
             (forward-line 1)
         )
 
