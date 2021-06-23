@@ -152,3 +152,6 @@
 (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
 (define-key dired-mode-map [mouse-8] (lambda () (interactive) (find-alternate-file "..")))
 (define-key dired-mode-map [drag-mouse-8] (lambda () (interactive) (find-alternate-file "..")))
+
+(global-set-key "\M-p" 'previous-buffer)
+(global-set-key "\M-n" 'next-buffer)
