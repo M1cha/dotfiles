@@ -12,3 +12,8 @@
     (setq indent-tabs-mode nil)
     (setq whitespace-line-column 99)
 ))
+
+(require 'clang-format)
+(add-hook 'c-mode-hook (lambda ()
+    (local-set-key (kbd "C-c C-f") #'clang-format-buffer)
+))
