@@ -164,3 +164,98 @@ nnoremap <silent> <S-Tab> :ClassicIndent 1 1<cr>
 xnoremap <silent> <S-Tab> :<c-u>ClassicIndent 0 1<cr>gv
 snoremap <silent> <S-Tab> <c-o>:<c-u>ClassicIndent 0 1<cr>gv<c-g>
 inoremap <silent> <S-Tab> <c-o>:ClassicIndent 1 1<cr>
+
+
+" cursor movement
+
+let s:ctrl_regex = "[ \\t\\r\\n()\\[\\]()<>\\.,:;'\"]"
+
+function! s:cursorchar()
+    return getline(".")[getpos(".")[2] - 1]
+endfunction
+
+function! s:cursor2startsel()
+    call setpos("'<", getpos("."))
+endfunction
+function! s:cursor2endsel()
+    call setpos("'>", getpos("."))
+endfunction
+
+function! s:search_nomatch(pattern, backwards)
+    let matched = 0
+
+    while s:cursorchar() =~ a:pattern
+        let matched += 1
+        if a:backwards == 1
+            exe "normal! \<Left>"
+        else
+            exe "normal! \<Right>"
+        endif
+    endwhile
+
+    return matched
+endfunction
+
+function! CtrlLeft(select, newselect)
+    if a:newselect == 1
+        call s:cursor2startsel()
+        call s:cursor2endsel()
+    endif
+
+    exe "normal! \<Left>"
+
+    if s:search_nomatch(s:ctrl_regex, 1) > 0
+        exe "normal! \<Right>"
+
+        if a:select == 1
+            call s:cursor2endsel()
+        endif
+    else
+        if search(s:ctrl_regex, "Wb") > 0
+            exe "normal! \<Right>"
+
+            if a:select == 1
+                call s:cursor2endsel()
+            endif
+        endif
+    endif
+endfunction
+
+inoremap <silent> <C-Left> <c-o>:call CtrlLeft(0, 0)<cr>
+nnoremap <silent> <C-Left> :call CtrlLeft(0, 0)<cr>
+xnoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v
+snoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v<c-g>
+
+nnoremap <silent> <C-S-Left> :call CtrlLeft(1, 1)<cr>gv<c-g>
+inoremap <silent> <C-S-Left> <esc>l:call CtrlLeft(1, 1)<cr>gv<c-g>
+xnoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv
+snoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv<c-g>
+
+function! CtrlRight(select, newselect)
+    if a:newselect == 1
+        call s:cursor2startsel()
+        call s:cursor2endsel()
+    endif
+
+    if s:search_nomatch(s:ctrl_regex, 0) > 0
+        if a:select == 1
+            call s:cursor2endsel()
+        endif
+    else
+        if search(s:ctrl_regex, "W") > 0
+            if a:select == 1
+                call s:cursor2endsel()
+            endif
+        endif
+    endif
+endfunction
+
+inoremap <silent> <C-Right> <c-o>:call CtrlRight(0, 0)<cr>
+nnoremap <silent> <C-Right> :call CtrlRight(0, 0)<cr>
+xnoremap <silent> <C-Right> <esc>:call CtrlRight(0, 0)<cr>v
+snoremap <silent> <C-Right> <esc>:call CtrlRight(0, 0)<cr>v<c-g>
+
+nnoremap <silent> <C-S-Right> :call CtrlRight(1, 1)<cr>gv<c-g>
+inoremap <silent> <C-S-Right> <esc>l:call CtrlRight(1, 1)<cr>gv<c-g>
+xnoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv
+snoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv<c-g>
