@@ -155,12 +155,12 @@ function! s:indent(singleline, unindent)
         call setpos(".", cursor)
     endif
 endfunction
-command! -nargs=+ ClassicIndent call s:indent(<f-args>)
-nnoremap <Tab> :ClassicIndent 1 0<cr>
-xnoremap <Tab> :<c-u>ClassicIndent 0 0<cr>gv
-snoremap <Tab> <c-o>:<c-u>ClassicIndent 0 0<cr>gv<c-g>
+command! -nargs=+ ClassicIndent silent call s:indent(<f-args>)
+nnoremap <silent> <Tab> :ClassicIndent 1 0<cr>
+xnoremap <silent> <Tab> :<c-u>ClassicIndent 0 0<cr>gv
+snoremap <silent> <Tab> <c-o>:<c-u>ClassicIndent 0 0<cr>gv<c-g>
 
-nnoremap <S-Tab> :ClassicIndent 1 1<cr>
-xnoremap <S-Tab> :<c-u>ClassicIndent 0 1<cr>gv
-snoremap <S-Tab> <c-o>:<c-u>ClassicIndent 0 1<cr>gv<c-g>
-inoremap <S-Tab> <c-o>:ClassicIndent 1 1<cr>
+nnoremap <silent> <S-Tab> :ClassicIndent 1 1<cr>
+xnoremap <silent> <S-Tab> :<c-u>ClassicIndent 0 1<cr>gv
+snoremap <silent> <S-Tab> <c-o>:<c-u>ClassicIndent 0 1<cr>gv<c-g>
+inoremap <silent> <S-Tab> <c-o>:ClassicIndent 1 1<cr>
