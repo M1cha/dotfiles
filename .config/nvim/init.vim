@@ -23,7 +23,14 @@ let g:vim_isort_map = ''
 set mouse=a
 source $VIMRUNTIME/mswin.vim
 nnoremap <PageUp> <C-u>
+inoremap <PageUp> <c-o><C-u><esc>
+vnoremap <PageUp> <C-u>
+xnoremap <PageUp> <C-u>
+
 nnoremap <PageDown> <C-d>
+inoremap <PageDown> <c-o><C-d><esc>
+vnoremap <PageDown> <C-d>
+xnoremap <PageDown> <C-d>
 
 nnoremap <C-M-S> :wq<cr>
 inoremap <C-M-S> <c-o>:wq<cr>
