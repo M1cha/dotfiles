@@ -43,9 +43,6 @@ snoremap <C-M-S> <c-o>:<c-u>wq<cr>
 noremap <C-W> :bd<cr>
 inoremap <C-W> <c-o>:bd<cr>
 
-noremap <M-n> :bnext<cr>
-inoremap <M-n> <c-o>:bnext<cr>
-
 noremap <M-p> :bprevious<cr>
 inoremap <M-p> <c-o>:bprevious<cr>
 
@@ -54,9 +51,14 @@ nnoremap <M-Down> <C-w><Down>
 nnoremap <M-Left> <C-w><Left>
 nnoremap <M-Right> <C-w><Right>
 
+" go to insert mode after paste
+snoremap <C-V> <c-o>"+gPi
+
 " search selection
 " Source: https://vim.fandom.com/wiki/Search_for_visually_selected_text
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+snoremap // <c-g>y/\V<C-R>=escape(@",'/\')<CR><CR><esc>
+inoremap <M-n> <c-o>n
+inoremap <M-p> <c-o>N
 
 " autoformat
 if has('python')
