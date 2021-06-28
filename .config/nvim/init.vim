@@ -230,7 +230,7 @@ xnoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v
 snoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v<c-g>
 
 nnoremap <silent> <C-S-Left> :call CtrlLeft(1, 1)<cr>gv<c-g>
-inoremap <silent> <C-S-Left> <esc>l:call CtrlLeft(1, 1)<cr>gv<c-g>
+inoremap <silent> <C-S-Left> <C-O>:call CtrlLeft(1, 1)<cr><C-O>gv<c-g>
 xnoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv
 snoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv<c-g>
 
@@ -259,6 +259,6 @@ xnoremap <silent> <C-Right> <esc>:call CtrlRight(0, 0)<cr>v
 snoremap <silent> <C-Right> <esc>:call CtrlRight(0, 0)<cr>v<c-g>
 
 nnoremap <silent> <C-S-Right> :call CtrlRight(1, 1)<cr>gv<c-g>
-inoremap <silent> <C-S-Right> <esc>l:call CtrlRight(1, 1)<cr>gv<c-g>
+inoremap <silent> <C-S-Right> <C-O>:call CtrlRight(1, 1)<cr><C-O>gv<c-g>
 xnoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv
 snoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv<c-g>
