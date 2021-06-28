@@ -74,7 +74,7 @@ set number
 set termguicolors
 set wildmode=longest,list
 set wildmenu
-" set insertmode
+set insertmode
 set cursorline
 set hidden
 colorscheme cobalt
