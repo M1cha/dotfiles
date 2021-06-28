@@ -18,6 +18,8 @@ let g:ctrlp_cmd = 'CtrlPBuffer'
 let g:ctrlp_working_path_mode = 'rc'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_match_window = 'results:100'
+inoremap <C-P> <c-o>:CtrlPBuffer<cr>
+
 let g:vim_isort_map = ''
 
 " classical editor keybindings
