@@ -264,3 +264,30 @@ nnoremap <silent> <C-S-Right> :call CtrlRight(1, 1)<cr>gv<c-g>
 inoremap <silent> <C-S-Right> <C-O>:call CtrlRight(1, 1)<cr><C-O>gv<c-g>
 xnoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv
 snoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv<c-g>
+
+function! Home(select, newselect)
+    if a:newselect == 1
+        call s:cursor2startsel()
+        call s:cursor2endsel()
+    endif
+
+    if getpos(".")[2] == 1
+        exe "normal! ^"
+    else
+        exe "normal! 0"
+    endif
+
+    if a:select == 1
+        call s:cursor2endsel()
+    endif
+endfunction
+
+inoremap <silent> <Home> <c-o>:call Home(0, 0)<cr>
+nnoremap <silent> <Home> :call Home(0, 0)<cr>
+xnoremap <silent> <Home> <esc>:call Home(0, 0)<cr>v
+snoremap <silent> <Home> <esc>:call Home(0, 0)<cr>v<c-g>
+
+nnoremap <silent> <S-Home> :call Home(1, 1)<cr>gv<c-g>
+inoremap <silent> <S-Home> <C-O>:call Home(1, 1)<cr><C-O>gv<c-g>
+xnoremap <silent> <S-Home> <esc>:call CtrlRight(1, 0)<cr>gv
+snoremap <silent> <S-Home> <esc>:call Home(1, 0)<cr>gv<c-g>
