@@ -25,4 +25,5 @@ hi SpecialComment guifg=#0088ff gui=bold
 hi Statement guifg=#ff9d00 gui=bold
 hi Identifier guifg=NONE guibg=NONE gui=NONE
 hi PreProc guifg=#80ffbb gui=bold
+hi Title guifg=#ffffff gui=bold
 
