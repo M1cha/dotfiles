@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+import neovim
+
+trans = str.maketrans(
+    {
+        " ": "\\ ",
+        "\\": "\\\\",
+    }
+)
+
+nvim = neovim.attach("socket", path="/tmp/nvimsocket")
+
+for path in sys.argv[1:]:
+    path = os.path.realpath(path)
+    path = path.translate(trans)
+
+    nvim.command(f"e {path}")
+
+nvim.command("call rpcnotify(0, 'Gui', 'Foreground')")
