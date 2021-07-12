@@ -224,6 +224,8 @@ function! CtrlLeft(select, newselect)
             endif
         endif
     endif
+
+    return ""
 endfunction
 
 inoremap <silent> <C-Left> <c-o>:call CtrlLeft(0, 0)<cr>
@@ -232,7 +234,7 @@ xnoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v
 snoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v<c-g>
 
 nnoremap <silent> <C-S-Left> :call CtrlLeft(1, 1)<cr>gv<c-g>
-inoremap <silent> <C-S-Left> <C-O>:call CtrlLeft(1, 1)<cr><C-O>gv<c-g>
+inoremap <silent> <C-S-Left> <C-R>=CtrlLeft(1, 1)<cr><C-O>gv<c-g>
 xnoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv
 snoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv<c-g>
 
@@ -280,6 +282,8 @@ function! Home(select, newselect)
     if a:select == 1
         call s:cursor2endsel()
     endif
+
+    return ""
 endfunction
 
 inoremap <silent> <Home> <c-o>:call Home(0, 0)<cr>
@@ -288,6 +292,6 @@ xnoremap <silent> <Home> <esc>:call Home(0, 0)<cr>v
 snoremap <silent> <Home> <esc>:call Home(0, 0)<cr>v<c-g>
 
 nnoremap <silent> <S-Home> :call Home(1, 1)<cr>gv<c-g>
-inoremap <silent> <S-Home> <C-O>:call Home(1, 1)<cr><C-O>gv<c-g>
+inoremap <silent> <S-Home> <C-R>=Home(1, 1)<cr><C-O>gv<c-g>
 xnoremap <silent> <S-Home> <esc>:call CtrlRight(1, 0)<cr>gv
 snoremap <silent> <S-Home> <esc>:call Home(1, 0)<cr>gv<c-g>
