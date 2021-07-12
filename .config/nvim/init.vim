@@ -80,6 +80,7 @@ set insertmode
 set cursorline
 set hidden
 colorscheme cobalt
+set statusline=%<%f\ %y%h%m%r%=%-14.(%l,%c%V%)\ %P
 
 " disable autoindent
 set noautoindent
