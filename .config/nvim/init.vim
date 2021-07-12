@@ -90,7 +90,6 @@ filetype plugin indent off
 " tab settings
 set expandtab
 set tabstop=4
-"autocmd Filetype css setlocal tabstop=4
 
 " show whitespace
 match ExtraWhitespace /\s\+$/
