@@ -74,6 +74,7 @@ autocmd FileType python imap <C-K> <c-o>:Black<cr><c-o>:Isort<cr>
 autocmd FileType rust map <C-K> :call rustfmt#Format()<cr>
 autocmd FileType rust imap <C-K> <c-o>:call rustfmt#Format()<cr>
 autocmd FileType rust setlocal tabstop=4 expandtab
+autocmd FileType yaml setlocal tabstop=2 expandtab
 
 " misc settings
 set number
