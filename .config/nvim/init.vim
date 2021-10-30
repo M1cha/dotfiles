@@ -120,7 +120,7 @@ function! s:indent(singleline, unindent)
         call setpos(".", [0, line, 1, 0])
 
         if a:unindent == 1
-            for i in range(0, &g:tabstop - 1)
+            for i in range(0, &l:tabstop - 1)
                 let c = getline(".")[col(".")-1]
                 if c == "\t"
                     if i == 0
@@ -137,9 +137,9 @@ function! s:indent(singleline, unindent)
                 endif
             endfor
         else
-            if &g:expandtab
-                exe "normal! i" . repeat(" ", &g:tabstop)
-                let nmoved += &g:tabstop
+            if &l:expandtab
+                exe "normal! i" . repeat(" ", &l:tabstop)
+                let nmoved += &l:tabstop
             else
                 exe "normal! i\<C-v>\t"
                 let nmoved += 1
