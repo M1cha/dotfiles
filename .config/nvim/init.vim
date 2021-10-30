@@ -142,12 +142,14 @@ function! s:indent(singleline, unindent)
                 endif
             endfor
         else
-            if &l:expandtab
-                exe "normal! i" . repeat(" ", &l:tabstop)
-                let nmoved += &l:tabstop
-            else
-                exe "normal! i\<C-v>\t"
-                let nmoved += 1
+            if getline(".") !~ '^\s*$'
+                if &l:expandtab
+                    exe "normal! i" . repeat(" ", &l:tabstop)
+                    let nmoved += &l:tabstop
+                else
+                    exe "normal! i\<C-v>\t"
+                    let nmoved += 1
+                endif
             endif
         endif
     endfor
