@@ -5,6 +5,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ambv/black'
 Plug 'fisadev/vim-isort'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " auto-install plugins
@@ -70,6 +71,9 @@ elseif has('python3')
 endif
 autocmd FileType python map <C-K> :Black<cr>:Isort<cr>
 autocmd FileType python imap <C-K> <c-o>:Black<cr><c-o>:Isort<cr>
+autocmd FileType rust map <C-K> :call rustfmt#Format()<cr>
+autocmd FileType rust imap <C-K> <c-o>:call rustfmt#Format()<cr>
+autocmd FileType rust setlocal tabstop=4 expandtab
 
 " misc settings
 set number
