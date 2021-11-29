@@ -72,9 +72,11 @@ elseif has('python3')
 endif
 autocmd FileType python map <C-K> :Black<cr>:Isort<cr>
 autocmd FileType python imap <C-K> <c-o>:Black<cr><c-o>:Isort<cr>
+autocmd FileType python setlocal tabstop=4 expandtab
 autocmd FileType rust map <C-K> :call rustfmt#Format()<cr>
 autocmd FileType rust imap <C-K> <c-o>:call rustfmt#Format()<cr>
 autocmd FileType rust setlocal tabstop=4 expandtab
+autocmd FileType toml setlocal tabstop=4 expandtab
 autocmd FileType yaml setlocal tabstop=2 expandtab
 autocmd FileType vim setlocal tabstop=4 expandtab
 autocmd FileType javascript setlocal tabstop=2 expandtab
