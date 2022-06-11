@@ -61,6 +61,8 @@ snoremap <C-V> <c-o>"+gPi
 snoremap // <c-g>y/\V<C-R>=escape(@",'/\')<CR><CR><esc>
 inoremap <M-n> <c-o>n
 inoremap <M-p> <c-o>N
+nnoremap <M-n> n
+nnoremap <M-p> N
 
 " autoformat
 if has('python')
@@ -80,6 +82,9 @@ autocmd FileType toml setlocal tabstop=4 expandtab
 autocmd FileType yaml setlocal tabstop=2 expandtab
 autocmd FileType vim setlocal tabstop=4 expandtab
 autocmd FileType javascript setlocal tabstop=2 expandtab
+autocmd FileType sh setlocal tabstop=4 expandtab
+autocmd FileType c setlocal tabstop=4 expandtab
+autocmd FileType cpp setlocal tabstop=4 expandtab
 
 " misc settings
 set number
