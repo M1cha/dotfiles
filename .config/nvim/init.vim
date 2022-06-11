@@ -1,51 +1,151 @@
-" TODO: color-scheme ssh, sudo, open-from-console
-
 " plugins
 call plug#begin(stdpath('data') . '/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ambv/black'
-Plug 'fisadev/vim-isort'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'tpope/vim-sleuth'
+Plug 'dstein64/nvim-scrollview'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'cespare/vim-toml'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 call plug#end()
 
 " auto-install plugins
 autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
+    \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \|   PlugInstall --sync | q
+    \| endif
 
-" configure plugins
-let g:ctrlp_cmd = 'CtrlPBuffer'
-let g:ctrlp_working_path_mode = 'rc'
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_match_window = 'results:100'
-inoremap <C-P> <c-o>:CtrlPBuffer<cr>
+lua << EOF
+require('lualine').setup {
+    options = {
+        theme = 'material',
+    },
+}
 
-let g:vim_isort_map = ''
+require('scrollview').setup({
+    excluded_filetypes = {'nerdtree'},
+    auto_workarounds = 0,
+})
 
-" classical editor keybindings
+-- Source: https://github.com/neovide/neovide/issues/1301#issuecomment-1119370546
+vim.g.gui_font_default_size = 11
+vim.g.gui_font_size = vim.g.gui_font_default_size
+vim.g.gui_font_face = "Hack"
+
+RefreshGuiFont = function()
+    vim.opt.guifont = string.format("%s:h%s",vim.g.gui_font_face, vim.g.gui_font_size)
+end
+
+-- neovideo crashes when zooming out a lot.
+-- To prevent this, we only refresh the font when it didn't change and prevent
+-- tiny font sizes.
+ResizeGuiFont = function(delta)
+    local newsize = vim.g.gui_font_size + delta
+
+    if newsize < 5 then
+        newsize = 5
+    end
+
+    if vim.g.gui_font_size ~= newsize then
+        vim.g.gui_font_size = newsize
+        RefreshGuiFont()
+    end
+end
+
+ResetGuiFont = function ()
+  vim.g.gui_font_size = vim.g.gui_font_default_size
+  RefreshGuiFont()
+end
+
+ResetGuiFont()
+
+local opts = { noremap = true, silent = true }
+vim.keymap.set({'n', 'i'}, "<C-=>", function() ResizeGuiFont(1)  end, opts)
+vim.keymap.set({'n', 'i'}, "<C-->", function() ResizeGuiFont(-1) end, opts)
+vim.keymap.set({'n', 'i'}, "<C-0>", function() ResetGuiFont() end, opts)
+vim.keymap.set({'n', 'i'}, "<C-ScrollWheelUp>", function() ResizeGuiFont(1)  end, opts)
+vim.keymap.set({'n', 'i'}, "<C-ScrollWheelDown>", function() ResizeGuiFont(-1) end, opts)
+EOF
+
+let g:neovide_cursor_animation_length = 0.010
+let g:neovide_scroll_animation_length = 0
+let g:neovide_confirm_quit = 1
+let g:neovide_floating_opacity = 0.8
+let g:neovide_refresh_rate=120
+
+let $FZF_DEFAULT_OPTS = '--preview-window=hidden --bind=F2:toggle-preview --keep-right'
+
+colorscheme cobalt
+set termguicolors
+set number
+set cursorline
+set noshowmode
+set clipboard=unnamed
 set mouse=a
-source $VIMRUNTIME/mswin.vim
-nnoremap <PageUp> <C-u>
-inoremap <PageUp> <c-o><C-u><esc>
-vnoremap <PageUp> <C-u>
-xnoremap <PageUp> <C-u>
 
-nnoremap <PageDown> <C-d>
-inoremap <PageDown> <c-o><C-d><esc>
-vnoremap <PageDown> <C-d>
-xnoremap <PageDown> <C-d>
+" set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
+
+" show whitespace
+match ExtraWhitespace /\s\+$/
+set list
+set listchars=space:·,eol:$,tab:»\ ,precedes:<
+
+source $VIMRUNTIME/mswin.vim
+behave xterm
+set keymodel=startsel,stopsel
+set backspace=indent,eol,start
+set whichwrap=b,s
+
+" Source: https://vi.stackexchange.com/questions/10031/scroll-a-quarter-25-of-the-screen-up-or-down
+function! ScrollPage(move)
+    let height=winheight(0)
+
+    if a:move == 'up'
+        let key="\<C-U>"
+    else
+        let key="\<C-D>"
+    endif
+
+    execute 'normal! ' . height . key
+endfunction
+
+nnoremap <silent> <PageUp> :call ScrollPage('up')<cr>
+inoremap <silent> <PageUp> <c-o>:call ScrollPage('up')<cr>
+xnoremap <silent> <PageUp> :<c-u>call ScrollPage('up')<cr>
+
+nnoremap <silent> <PageDown> :call ScrollPage('down')<cr>
+inoremap <silent> <PageDown> <c-o>:call ScrollPage('down')<cr>
+xnoremap <silent> <PageDown> :<c-u>call ScrollPage('down')<cr>
+
+" Source: https://github.com/junegunn/fzf.vim/issues/289#issuecomment-447560813
+function! s:fzf_next(idx)
+    let commands = ['FilesCurrent', 'Buffers', 'History']
+    execute commands[a:idx]
+    let next = (a:idx + 1) % len(commands)
+    let previous = (a:idx - 1) % len(commands)
+    execute 'tnoremap <buffer> <silent> <c-f> <c-\><c-n>:close<cr>:sleep 100m<cr>:call <sid>fzf_next('.next.')<cr>'
+    execute 'tnoremap <buffer> <silent> <c-b> <c-\><c-n>:close<cr>:sleep 100m<cr>:call <sid>fzf_next('.previous.')<cr>'
+endfunction
+command! Cycle call <sid>fzf_next(1)
+
+runtime! smartcwd.vim
+command! FilesCurrent call fzf#vim#files(SmartCWD(), fzf#vim#with_preview())
+
+nnoremap <silent> <C-p> :Cycle<cr>
+inoremap <silent> <C-p> <c-o>:Cycle<cr>
+xnoremap <silent> <C-p> :<c-u>:Cycle<cr>
 
 nnoremap <C-M-S> :wq<cr>
 inoremap <C-M-S> <c-o>:wq<cr>
 xnoremap <C-M-S> :<c-u>wq<cr>
 snoremap <C-M-S> <c-o>:<c-u>wq<cr>
 
-noremap <C-W> :bd<cr>
+nnoremap <C-W> :bd<cr>
 inoremap <C-W> <c-o>:bd<cr>
 
-noremap <M-p> :bprevious<cr>
+nnoremap <M-p> :bprevious<cr>
 inoremap <M-p> <c-o>:bprevious<cr>
 
 nnoremap <M-Up> <C-w><Up>
@@ -53,140 +153,18 @@ nnoremap <M-Down> <C-w><Down>
 nnoremap <M-Left> <C-w><Left>
 nnoremap <M-Right> <C-w><Right>
 
-" go to insert mode after paste
-snoremap <C-V> <c-o>"+gPi
-
-" search selection
-" Source: https://vim.fandom.com/wiki/Search_for_visually_selected_text
-snoremap // <c-g>y/\V<C-R>=escape(@",'/\')<CR><CR><esc>
-inoremap <M-n> <c-o>n
-inoremap <M-p> <c-o>N
-nnoremap <M-n> n
-nnoremap <M-p> N
-
-" autoformat
-if has('python')
-    autocmd FileType c,cpp,proto map <C-K> :execute 'pyf ' . stdpath('config') . '/clang-format.py'<cr>
-    autocmd FileType c,cpp,proto imap <C-K> <c-o>:execute 'pyf ' . stdpath('config') . '/clang-format.py'<cr>
-elseif has('python3')
-    autocmd FileType c,cpp,proto map <C-K> :execute 'py3f ' . stdpath('config') . '/clang-format.py'<cr>
-    autocmd FileType c,cpp,proto imap <C-K> <c-o>:execute 'py3f ' . stdpath('config') . '/clang-format.py'<cr>
-endif
-autocmd FileType python map <C-K> :Black<cr>:Isort<cr>
-autocmd FileType python imap <C-K> <c-o>:Black<cr><c-o>:Isort<cr>
-autocmd FileType python setlocal tabstop=4 expandtab
-autocmd FileType rust map <C-K> :call rustfmt#Format()<cr>
-autocmd FileType rust imap <C-K> <c-o>:call rustfmt#Format()<cr>
-autocmd FileType rust setlocal tabstop=4 expandtab
-autocmd FileType toml setlocal tabstop=4 expandtab
-autocmd FileType yaml setlocal tabstop=2 expandtab
-autocmd FileType vim setlocal tabstop=4 expandtab
-autocmd FileType javascript setlocal tabstop=2 expandtab
-autocmd FileType sh setlocal tabstop=4 expandtab
-autocmd FileType c setlocal tabstop=4 expandtab
-autocmd FileType cpp setlocal tabstop=4 expandtab
-
-" misc settings
-set number
-set termguicolors
-set wildmode=longest,list
-set wildmenu
-set insertmode
-set cursorline
-set hidden
-colorscheme cobalt
-set statusline=%<%f\ %y%h%m%r%=%-14.(%l,%c%V%)\ %P
-
-" disable autoindent
-set noautoindent
-set nosmarttab
-filetype plugin indent off
-
-" show whitespace
-match ExtraWhitespace /\s\+$/
-set list
-set listchars=space:·,eol:$,tab:»\ ,precedes:<
-
-" Redirect the output of a Vim or external command into a scratch buffer
-" Source: https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7#gistcomment-2884648
-function! Redir(cmd) abort
-    let output = execute(a:cmd)
-    tabnew
-    setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
-    call setline(1, split(output, "\n"))
-endfunction
-command! -nargs=1 Redir silent call Redir(<f-args>)
-
-" slightly smarter classic tab key
-function! s:indent(singleline, unindent)
-    let cursor = getpos(".")
-    let sel_start = getpos("'<")
-    let sel_end = getpos("'>")
-    if a:singleline == 1
-        let firstline = cursor[1]
-        let lastline = cursor[1]
-    else
-        let firstline = sel_start[1]
-        let lastline = sel_end[1]
-    endif
-    let nmoved = 0
-
-    for line in range(firstline, lastline)
-        call setpos(".", [0, line, 1, 0])
-
-        if a:unindent == 1
-            for i in range(0, &l:tabstop - 1)
-                let c = getline(".")[col(".")-1]
-                if c == "\t"
-                    if i == 0
-                        exe "normal! x"
-                        let nmoved -= 1
-                    endif
-                    break
-                elseif c == " "
-                    exe "normal! x"
-                        let nmoved -= 1
-                    continue
-                else
-                    break
-                endif
-            endfor
-        else
-            if getline(".") !~ '^\s*$'
-                if &l:expandtab
-                    exe "normal! i" . repeat(" ", &l:tabstop)
-                    let nmoved += &l:tabstop
-                else
-                    exe "normal! i\<C-v>\t"
-                    let nmoved += 1
-                endif
-            endif
-        endif
-    endfor
-
-    if firstline == lastline
-        if nmoved > 0 || cursor[2] >= nmoved
-            let cursor[2] += nmoved
-        else
-            let cursor[2] = 0
-        endif
-        call setpos(".", cursor)
-    endif
-endfunction
-command! -nargs=+ ClassicIndent silent call s:indent(<f-args>)
-nnoremap <silent> <Tab> :ClassicIndent 1 0<cr>
-xnoremap <silent> <Tab> :<c-u>ClassicIndent 0 0<cr>gv
-snoremap <silent> <Tab> <c-o>:<c-u>ClassicIndent 0 0<cr>gv<c-g>
-
-nnoremap <silent> <S-Tab> :ClassicIndent 1 1<cr>
-xnoremap <silent> <S-Tab> :<c-u>ClassicIndent 0 1<cr>gv
-snoremap <silent> <S-Tab> <c-o>:<c-u>ClassicIndent 0 1<cr>gv<c-g>
-inoremap <silent> <S-Tab> <c-o>:ClassicIndent 1 1<cr>
-
+inoremap <M-Up> <c-o><C-w><Up>
+inoremap <M-Down> <c-o><C-w><Down>
+inoremap <M-Left> <c-o><C-w><Left>
+inoremap <M-Right> <c-o><C-w><Right>
 
 " cursor movement
 
 let s:ctrl_regex = "[ \\t\\r\\n()\\[\\]()<>\\.,:;'\"]"
+let s:non_ctrl_regex = s:ctrl_regex."\\@!."
+
+let s:nc_and_c_regex = s:non_ctrl_regex . s:ctrl_regex
+let s:c_and_nc_regex = s:ctrl_regex . s:non_ctrl_regex
 
 function! s:cursorchar()
     return getline(".")[getpos(".")[2] - 1]
@@ -195,116 +173,149 @@ endfunction
 function! s:cursor2startsel()
     call setpos("'<", getpos("."))
 endfunction
+
 function! s:cursor2endsel()
     call setpos("'>", getpos("."))
 endfunction
 
-function! s:search_nomatch(pattern, backwards)
-    let matched = 0
+function! s:setcol(expr, id)
+    let pos = getpos(a:expr)
+    let pos[2] = a:id
+    call setpos(a:expr, pos)
+endfunction
 
-    while s:cursorchar() =~ a:pattern
-        let matched += 1
-        if a:backwards == 1
-            exe "normal! \<Left>"
+function! CtrlMove(direction, select, newselect)
+    if a:direction == "left"
+        let l:idx_next = -1
+    else
+        let l:idx_next = 1
+    endif
+
+    if a:newselect == 1
+        call s:cursor2startsel()
+        call s:cursor2endsel()
+    endif
+
+    let curcol = col(".")
+    let curline = line(".")
+    let curmode = mode()
+
+    if s:cursorchar() =~ s:ctrl_regex
+        if a:direction == "left"
+            let l:res = search(s:nc_and_c_regex, "cWbe", curline)
         else
-            exe "normal! \<Right>"
-        endif
-    endwhile
-
-    return matched
-endfunction
-
-function! CtrlLeft(select, newselect)
-    if a:newselect == 1
-        call s:cursor2startsel()
-        call s:cursor2endsel()
-    endif
-
-    exe "normal! \<Left>"
-
-    if s:search_nomatch(s:ctrl_regex, 1) > 0
-        exe "normal! \<Right>"
-
-        if a:select == 1
-            call s:cursor2endsel()
+            let l:res = search(s:c_and_nc_regex, "cW", curline)
         endif
     else
-        if search(s:ctrl_regex, "Wb") > 0
-            exe "normal! \<Right>"
-
-            if a:select == 1
-                call s:cursor2endsel()
-            endif
+        if a:direction == "left"
+            let l:res = search(s:c_and_nc_regex, "cWbe", curline)
+        else
+            let l:res = search(s:nc_and_c_regex, "cW", curline)
         endif
     endif
 
-    return ""
-endfunction
-
-inoremap <silent> <C-Left> <c-o>:call CtrlLeft(0, 0)<cr>
-nnoremap <silent> <C-Left> :call CtrlLeft(0, 0)<cr>
-xnoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v
-snoremap <silent> <C-Left> <esc>:call CtrlLeft(0, 0)<cr>v<c-g>
-
-nnoremap <silent> <C-S-Left> :call CtrlLeft(1, 1)<cr>gv<c-g>
-inoremap <silent> <C-S-Left> <C-R>=CtrlLeft(1, 1)<cr><C-O>gv<c-g>
-xnoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv
-snoremap <silent> <C-S-Left> <esc>:call CtrlLeft(1, 0)<cr>gv<c-g>
-
-function! CtrlRight(select, newselect)
-    if a:newselect == 1
-        call s:cursor2startsel()
-        call s:cursor2endsel()
-    endif
-
-    if s:search_nomatch(s:ctrl_regex, 0) > 0
-        if a:select == 1
-            call s:cursor2endsel()
-        endif
-    else
-        if search(s:ctrl_regex, "W") > 0
-            if a:select == 1
-                call s:cursor2endsel()
-            endif
+    " no result, move to start/end of line
+    if l:res == 0
+        if a:direction == "left"
+            call s:setcol(".", 1)
+        else
+            call s:setcol(".", col("$"))
         endif
     endif
-endfunction
 
-inoremap <silent> <C-Right> <c-o>:call CtrlRight(0, 0)<cr>
-nnoremap <silent> <C-Right> :call CtrlRight(0, 0)<cr>
-xnoremap <silent> <C-Right> <esc>:call CtrlRight(0, 0)<cr>v
-snoremap <silent> <C-Right> <esc>:call CtrlRight(0, 0)<cr>v<c-g>
-
-nnoremap <silent> <C-S-Right> :call CtrlRight(1, 1)<cr>gv<c-g>
-inoremap <silent> <C-S-Right> <C-O>:call CtrlRight(1, 1)<cr><C-O>gv<c-g>
-xnoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv
-snoremap <silent> <C-S-Right> <esc>:call CtrlRight(1, 0)<cr>gv<c-g>
-
-function! Home(select, newselect)
-    if a:newselect == 1
-        call s:cursor2startsel()
-        call s:cursor2endsel()
-    endif
-
-    if getpos(".")[2] == 1
-        exe "normal! ^"
-    else
-        exe "normal! 0"
+    " no change, go to next block
+    if col(".") == curcol && (curcol > 1 && curcol < col("$"))
+        call s:setcol(".", curcol + l:idx_next)
     endif
 
     if a:select == 1
         call s:cursor2endsel()
     endif
 
-    return ""
+    let l:retval = ""
+    if curmode == "i"
+        let l:retval .= "\<c-o>" . col(".") . "|"
+
+        if a:select == 1
+            let l:retval .= "\<c-o>gv"
+        endif
+    endif
+
+    return l:retval
 endfunction
 
-inoremap <silent> <Home> <c-o>:call Home(0, 0)<cr>
+inoremap <expr> <silent> <C-Left> CtrlMove("left", 0, 0)
+nnoremap <silent> <C-Left> :call CtrlMove("left", 0, 0)<cr>
+xnoremap <silent> <C-Left> <esc>:call CtrlMove("left", 0, 0)<cr>v
+
+inoremap <expr> <silent> <C-Right> CtrlMove("right", 0, 0)
+nnoremap <silent> <C-Right> :call CtrlMove("right", 0, 0)<cr>
+xnoremap <silent> <C-Right> <esc>:call CtrlMove("right", 0, 0)<cr>v
+
+inoremap <expr> <silent> <C-S-Left> CtrlMove("left", 1, 1)
+nnoremap <silent> <C-S-Left> :call CtrlMove("left", 1, 1)<cr>gv
+xnoremap <silent> <C-S-Left> <esc>:call CtrlMove("left", 1, 0)<cr>gv
+
+inoremap <expr> <silent> <C-S-Right> CtrlMove("right", 1, 1)
+nnoremap <silent> <C-S-Right> :call CtrlMove("right", 1, 1)<cr>gv
+xnoremap <silent> <C-S-Right> <esc>:call CtrlMove("right", 1, 0)<cr>gv
+
+inoremap <silent> <S-Tab> <c-d>
+
+function! Home(select, newselect)
+    let l:retval = ""
+
+    if a:newselect == 1
+        call s:cursor2startsel()
+        call s:cursor2endsel()
+    endif
+
+    if getpos(".")[2] == 1
+        call search('\S', "Wc", line("."))
+    else
+        call s:setcol(".", 1)
+    endif
+
+    if mode() == "i"
+        let l:retval .= "\<c-o>" . col(".") . "|"
+
+        if a:select == 1
+            let l:retval .= "\<c-o>gv"
+        endif
+    endif
+
+    if a:select == 1
+        call s:cursor2endsel()
+    endif
+
+    return l:retval
+endfunction
+
+inoremap <expr> <silent> <Home> Home(0, 0)
 nnoremap <silent> <Home> :call Home(0, 0)<cr>
 xnoremap <silent> <Home> <esc>:call Home(0, 0)<cr>v
-snoremap <silent> <Home> <esc>:call Home(0, 0)<cr>v<c-g>
 
-nnoremap <silent> <S-Home> :call Home(1, 1)<cr>gv<c-g>
-inoremap <silent> <S-Home> <C-R>=Home(1, 1)<cr><C-O>gv<c-g>
-xnoremap <silent> <S-Home> <esc>:call CtrlRight(1, 0)<cr>gv
-snoremap <silent> <S-Home> <esc>:call Home(1, 0)<cr>gv<c-g>
+inoremap <expr> <silent> <S-Home> Home(1, 1)
+nnoremap <silent> <S-Home> :call Home(1, 1)<cr>gv
+xnoremap <silent> <S-Home> <esc>:call Home(1, 0)<cr>gv
+
+" Source: https://www.reddit.com/r/neovim/comments/nrz9hp/can_i_close_all_floating_windows_without_closing/h0lg5m1/
+command! -nargs=0 KillFloat :lua for _, win in ipairs(vim.api.nvim_list_wins()) do local config = vim.api.nvim_win_get_config(win); if config.relative ~= "" then vim.api.nvim_win_close(win, false); print('Closing window', win) end end
+
+" Source: https://github.com/junegunn/fzf.vim/pull/733#issuecomment-559720813
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
