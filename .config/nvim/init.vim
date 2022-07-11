@@ -96,7 +96,7 @@ set keymodel=startsel,stopsel
 set backspace=indent,eol,start
 set whichwrap=b,s
 
-" Source: https://vi.stackexchange.com/questions/10031/scroll-a-quarter-25-of-the-screen-up-or-down
+" Source: https://vi.stackexchange.com/questions/10031/scroll-a-quarter-25-of-the-screen-up-or-down/10033#10033
 function! ScrollPage(move)
     let height=winheight(0)
 
