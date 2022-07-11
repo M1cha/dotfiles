@@ -263,6 +263,8 @@ nnoremap <silent> <C-S-Right> :call CtrlMove("right", 1, 1)<cr>gv
 xnoremap <silent> <C-S-Right> <esc>:call CtrlMove("right", 1, 0)<cr>gv
 
 inoremap <silent> <S-Tab> <c-d>
+vnoremap > >gv
+vnoremap < <gv
 
 function! Home(select, newselect)
     let l:retval = ""
