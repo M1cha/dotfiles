@@ -85,8 +85,6 @@ set noshowmode
 set clipboard=unnamed
 set mouse=a
 
-" set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
-
 " show whitespace
 match ExtraWhitespace /\s\+$/
 set list
