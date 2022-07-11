@@ -182,6 +182,10 @@ function! s:setcol(expr, id)
     call setpos(a:expr, pos)
 endfunction
 
+function! SetCol(expr, id)
+    call s:setcol(a:expr, a:id)
+endfunction
+
 function! CtrlMove(direction, select, newselect)
     if a:direction == "left"
         let l:idx_next = -1
@@ -222,7 +226,7 @@ function! CtrlMove(direction, select, newselect)
     endif
 
     " no change, go to next block
-    if col(".") == curcol && (curcol > 1 && curcol < col("$"))
+    if col(".") == curcol && curcol < col("$")
         call s:setcol(".", curcol + l:idx_next)
     endif
 
@@ -232,7 +236,7 @@ function! CtrlMove(direction, select, newselect)
 
     let l:retval = ""
     if curmode == "i"
-        let l:retval .= "\<c-o>" . col(".") . "|"
+        let l:retval .= "\<c-o>:call SetCol(\".\", " . col(".") . ")\<cr>"
 
         if a:select == 1
             let l:retval .= "\<c-o>gv"
@@ -275,7 +279,7 @@ function! Home(select, newselect)
     endif
 
     if mode() == "i"
-        let l:retval .= "\<c-o>" . col(".") . "|"
+        let l:retval .= "\<c-o>:call SetCol(\".\", " . col(".") . ")\<cr>"
 
         if a:select == 1
             let l:retval .= "\<c-o>gv"
