@@ -323,3 +323,20 @@ command! BD call fzf#run(fzf#wrap({
   \ 'sink*': { lines -> s:delete_buffers(lines) },
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
 \ }))
+
+" Source: https://stackoverflow.com/questions/6254820/perform-a-non-regex-search-replace-in-vim/6282050#6282050
+:command! -nargs=1 S :let @/='\V'.escape(<q-args>, '\/')| normal! n
+
+" Search for selected text, forwards or backwards.
+" Source: https://vim.fandom.com/wiki/Search_for_visually_selected_text#Advanced
+" Modified: search for matching whitespace
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\n', '\\n', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\n', '\\n', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
