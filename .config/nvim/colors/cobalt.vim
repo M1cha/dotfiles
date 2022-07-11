@@ -6,7 +6,7 @@ endif
 
 let colors_name = "cobalt"
 
-hi Normal guifg=#ffffff guibg=#001b33 gui=NONE
+hi Normal guifg=#ffffff guibg=#000000 gui=NONE
 hi CursorLine guibg=#003b70 gui=NONE
 hi LineNr guifg=#0065bf guibg=#000d1a gui=NONE
 hi CursorLineNr guifg=#0065bf guibg=#000d1a gui=bold
