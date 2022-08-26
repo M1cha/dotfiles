@@ -2,8 +2,8 @@
 
 import os
 import sys
-
 import neovim
+import subprocess
 
 trans = str.maketrans(
     {
@@ -12,12 +12,40 @@ trans = str.maketrans(
     }
 )
 
-nvim = neovim.attach("socket", path="/tmp/nvimsocket")
+environ = os.environ
+try:
+    p = subprocess.run(["tmux", "display-message", "-p", "#{client_pid}"], capture_output=True, check=True)
+    pid=int(p.stdout)
+
+    with open(f"/proc/{pid}/environ", "rb") as f:
+        environ=f.read()
+
+    environ_kv={}
+    for kv in environ.split(b'\x00'):
+        if len(kv) == 0:
+            continue
+
+        kv=kv.decode("utf-8").split("=", 1)
+        environ_kv[kv[0]] = kv[1]
+
+    environ = environ_kv
+except subprocess.CalledProcessError as e:
+    pass
+
+prefix = ""
+if "LC_NVIMPREFIX" in environ:
+    prefix = environ["LC_NVIMPREFIX"]
+
+socketpath = "/tmp/nvimsocket"
+if "LC_NVIMSOCKET" in environ:
+    socketpath = environ["LC_NVIMSOCKET"]
+
+nvim = neovim.attach("socket", path=socketpath)
 
 for path in sys.argv[1:]:
     path = os.path.realpath(path)
     path = path.translate(trans)
 
-    nvim.command(f"e {path}")
+    nvim.command(f"e {prefix}{path}")
 
 nvim.command("call rpcnotify(0, 'Gui', 'Foreground')")
