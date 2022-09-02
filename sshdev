@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export LC_NVIMSOCKET="/tmp/nvimsocket-$HOSTNAME-$BASHPID"
+remote="$1"
+
+host=(${remote//@/ })
+host=${host[1]}
+
+export LC_NVIMPREFIX="/tmp/sshfs.$host"
+
+mkdir -p "$LC_NVIMPREFIX"
+mountpoint -q "$LC_NVIMPREFIX" || sshfs -o reconnect $remote:/ "$LC_NVIMPREFIX"
+
+exec ssh -o "SendEnv=LC_NVIMSOCKET LC_NVIMPREFIX" "-R$LC_NVIMSOCKET:/tmp/nvimsocket" "$remote"
