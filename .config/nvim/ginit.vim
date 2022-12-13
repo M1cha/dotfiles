@@ -10,7 +10,7 @@ endif
 
 " Enable GUI ScrollBar
 if exists(':GuiScrollBar')
-    GuiScrollBar 1
+    GuiScrollBar 0
 endif
 
 if exists(':GuiFont')
