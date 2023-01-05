@@ -29,7 +29,7 @@ try:
         environ_kv[kv[0]] = kv[1]
 
     environ = environ_kv
-except:
+except Exception as e:
     pass
 
 prefix = ""
