@@ -27,3 +27,12 @@ hi Identifier guifg=NONE guibg=NONE gui=NONE
 hi PreProc guifg=#80ffbb gui=bold
 hi Title guifg=#ffffff gui=bold
 
+hi DiffAdd guifg=#cddc39 guibg=#003b70 gui=bold
+hi DiffChange guifg=#ff9d00 guibg=#003b70 gui=bold
+hi DiffDelete guifg=#ff5252 guibg=#003b70 gui=bold
+hi DiffText guifg=NONE guibg=NONE gui=bold
+
+hi diffIndexLine guifg=#ffffff gui=bold
+hi diffAdded guifg=#cddc39 gui=NONE
+hi diffChanged guifg=#e89e64 gui=NONE
+hi diffRemoved guifg=#ff5252 gui=NONE
