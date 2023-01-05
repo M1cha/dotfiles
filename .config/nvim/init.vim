@@ -9,6 +9,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'mracos/mermaid.vim'
 call plug#end()
 
 " auto-install plugins
@@ -74,6 +75,7 @@ let g:neovide_scroll_animation_length = 0
 let g:neovide_confirm_quit = 1
 let g:neovide_floating_opacity = 0.8
 let g:neovide_refresh_rate=120
+let g:markdown_fenced_languages = ['bash=sh', 'mermaid']
 
 let $FZF_DEFAULT_OPTS = '--preview-window=hidden --bind=F2:toggle-preview --keep-right'
 
