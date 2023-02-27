@@ -41,6 +41,12 @@ if "LC_NVIMSOCKET" in environ:
     socketpath = environ["LC_NVIMSOCKET"]
 
 nvim = neovim.attach("socket", path=socketpath)
+window = nvim.current.window
+window_config = nvim.request("nvim_win_get_config", window)
+is_floating = window_config["relative"] != ""
+
+if is_floating:
+    nvim.request("nvim_win_close", window, False)
 
 for path in sys.argv[1:]:
     path = os.path.realpath(path)
