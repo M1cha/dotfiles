@@ -119,6 +119,9 @@ nnoremap <silent> <PageDown> :call ScrollPage('down')<cr>
 inoremap <silent> <PageDown> <c-o>:call ScrollPage('down')<cr>
 xnoremap <silent> <PageDown> :<c-u>call ScrollPage('down')<cr>
 
+
+let $FZF_DEFAULT_COMMAND = 'fd --type file'
+
 " Source: https://github.com/junegunn/fzf.vim/issues/289#issuecomment-447560813
 function! s:fzf_next(idx)
     let commands = ['FilesCurrent', 'Buffers', 'History']
