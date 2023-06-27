@@ -147,10 +147,17 @@ command! Cycle call <sid>fzf_next(1)
 
 runtime! smartcwd.vim
 command! FilesCurrent call fzf#vim#files(SmartCWD(), fzf#vim#with_preview())
+" command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- " . shellescape(<q-args>) . " " . shellescape(SmartCWD()), 1, fzf#vim#with_preview())
+
+command! -bang -nargs=* Rg lgetexpr system("rg --column --line-number --no-heading -- " . shellescape(<q-args>) . " " . shellescape(SmartCWD())) | lopen
 
 nnoremap <silent> <C-p> :Cycle<cr>
 inoremap <silent> <C-p> <c-o>:Cycle<cr>
 xnoremap <silent> <C-p> :<c-u>:Cycle<cr>
+
+nnoremap <silent> <C-g> :Rg<cr>
+inoremap <silent> <C-g> <c-o>:Rg<cr>
+xnoremap <silent> <C-g> :<c-u>:Rg<cr>
 
 nnoremap <C-M-S> :wq<cr>
 inoremap <C-M-S> <c-o>:wq<cr>
