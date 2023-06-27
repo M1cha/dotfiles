@@ -76,6 +76,14 @@ let g:neovide_confirm_quit = 1
 let g:neovide_floating_opacity = 0.8
 let g:neovide_refresh_rate=120
 let g:markdown_fenced_languages = ['bash=sh', 'mermaid']
+let g:terminal_color_0 = '#000000'
+let g:terminal_color_1 = '#ff5252'
+let g:terminal_color_2 = '#cddc39'
+let g:terminal_color_3 = '#e89e64'
+let g:terminal_color_4 = '#6ec6ff'
+let g:terminal_color_5 = '#df78ef'
+let g:terminal_color_6 = '#4dd0e1'
+let g:terminal_color_7 = '#ffffff'
 
 let $FZF_DEFAULT_OPTS = '--preview-window=hidden --bind=F2:toggle-preview --keep-right'
 
