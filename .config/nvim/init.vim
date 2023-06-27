@@ -85,6 +85,10 @@ let g:terminal_color_5 = '#df78ef'
 let g:terminal_color_6 = '#4dd0e1'
 let g:terminal_color_7 = '#ffffff'
 
+autocmd BufNewFile,BufRead *.container set filetype=systemd
+autocmd! FileType fzf tnoremap <expr> <C-v> getreg('+')
+autocmd! FileType yaml setlocal indentexpr=''
+
 let $FZF_DEFAULT_OPTS = '--preview-window=hidden --bind=F2:toggle-preview --keep-right'
 
 colorscheme cobalt
