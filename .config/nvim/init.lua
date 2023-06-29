@@ -141,6 +141,8 @@ local groups = {
         ["@parameter"] = { fg = "#ffffff" },
         ["@keyword.return"] = { fg = palettes.carbonfox.magenta },
         ["@include"] = { style = "bold", fg = "#80ffbb" },
+        ["@define"] = { style = "bold", fg = "#ff9d00" },
+        ["@preproc"] = { style = "bold", fg = "#ff9d00" },
     }
 }
 require('nightfox').setup({
