@@ -56,6 +56,10 @@ require("lazy").setup({
         branch = "0.1.x",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+    },
 
     {
         "nvim-lualine/lualine.nvim",
@@ -171,10 +175,24 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
+require("telescope").setup {
+    defaults = {
+        path_display = { "truncate" },
+    },
+    pickers = {
+        buffers = {
+            sort_mru = true,
+            ignore_current_buffer = true,
+        },
+    },
+}
+require("telescope").load_extension("fzf")
+
 local builtin = require('telescope.builtin')
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
 vim.keymap.set("n", "<leader>fc", builtin.live_grep, { desc = "[F]ind [C]ontents" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
+vim.keymap.set("i", "<c-p>", builtin.buffers, { desc = "[F]ind [B]uffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind [W]ord" })
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
