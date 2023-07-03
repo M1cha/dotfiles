@@ -53,8 +53,10 @@ require("lazy").setup({
 
     {
         "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "debugloop/telescope-undo.nvim",
+        },
     },
     {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -187,6 +189,7 @@ require("telescope").setup {
     },
 }
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("undo")
 
 local builtin = require('telescope.builtin')
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
@@ -210,6 +213,8 @@ vim.keymap.set('n', '<leader>/', function()
         previewer = false,
     })
 end, { desc = '[/] Fuzzily search in current buffer' })
+
+vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
