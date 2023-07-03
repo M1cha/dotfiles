@@ -203,6 +203,8 @@ local groups = {
         Whitespace = { fg = "#777777" },
         ExtraWhitespace = { fg = "#ffffff", bg = "#ff0044" },
         Visual = { fg = "#ffffff", bg = "#0088ff" },
+        TelescopeBorder = { fg = "#ffffff" },
+        TelescopePromptCounter = { fg = "#ffffff" },
         ["@parameter"] = { fg = "#ffffff" },
         ["@keyword.return"] = { fg = palettes.carbonfox.magenta },
         ["@include"] = { style = "bold", fg = "#80ffbb" },
@@ -239,6 +241,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require("telescope").setup {
     defaults = {
         path_display = { "truncate" },
+        layout_config = {
+            horizontal = {
+                width = { padding = 0 },
+                height = { padding = 0 },
+            },
+        },
     },
     pickers = {
         buffers = {
