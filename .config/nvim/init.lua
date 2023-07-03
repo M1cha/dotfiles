@@ -188,6 +188,10 @@ local specs = {
             builtin0 = "#ffffff",
             builtin1 = "#80ffbb",
             builtin2 = "#ffee80",
+        },
+        git = {
+            add = "#cddc39",
+            removed = "#ff5252",
         }
     }
 }
