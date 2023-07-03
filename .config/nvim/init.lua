@@ -30,7 +30,6 @@ vim.o.cursorline = true
 vim.o.undofile = true
 
 -- show whitespace
---vim.cmd.match "ExtraWhitespace" "/\\s\\+$/"
 vim.cmd[[match ExtraWhitespace /\s\+$/]]
 vim.o.list = true
 vim.o.listchars = "space:·,eol:$,tab:» ,precedes:<"
