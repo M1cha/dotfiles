@@ -32,8 +32,8 @@ vim.o.undofile = true
 -- show whitespace
 --vim.cmd.match "ExtraWhitespace" "/\\s\\+$/"
 vim.cmd[[match ExtraWhitespace /\s\+$/]]
-vim.wo.list = true
-vim.wo.listchars = "space:·,eol:$,tab:» ,precedes:<"   
+vim.o.list = true
+vim.o.listchars = "space:·,eol:$,tab:» ,precedes:<"
 
 require("lazy").setup({
     {
