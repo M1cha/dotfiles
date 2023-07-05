@@ -102,7 +102,12 @@ require("lazy").setup({
         },
         opts = {
         },
-    }
+    },
+
+    {
+        "phaazon/hop.nvim",
+        opts = {},
+    },
 })
 
 require('nvim-treesitter.configs').setup {
@@ -291,6 +296,7 @@ vim.keymap.set('n', '<down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent
 vim.keymap.set("i", "<c-s>", "<esc>:w<cr>")
 vim.keymap.set("n", "<c-s>", ":w<cr>")
 
+vim.keymap.set("n", "<leader>h", require("hop").hint_words, { desc = "[G]it [S]tatus" })
 
 vim.filetype.add({
     extension = {
