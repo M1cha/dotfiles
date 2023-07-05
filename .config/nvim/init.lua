@@ -290,3 +290,10 @@ vim.keymap.set('n', '<down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent
 
 vim.keymap.set("i", "<c-s>", "<esc>:w<cr>")
 vim.keymap.set("n", "<c-s>", ":w<cr>")
+
+
+vim.filetype.add({
+    extension = {
+        overlay = "dts",
+    },
+})
