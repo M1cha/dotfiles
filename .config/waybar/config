@@ -5,11 +5,7 @@
     "modules-center": ["hyprland/window"],
     "modules-right": ["idle_inhibitor", "pulseaudio", "backlight", "battery", "battery#bat2", "clock", "tray"],
     "hyprland/workspaces": {
-        "format": "{id}: {icon}",
-        "format-icons": {
-            "active": "",
-            "default": ""
-        },
+        "format": "{id}",
     },
     "hyprland/language": {
         "format": "{short}:{variant}",
