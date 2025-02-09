@@ -1,0 +1,51 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "#686868"
+blue = "#6ec6ff"
+cyan = "#4dd0e1"
+green = "#cddc39"
+magenta = "#df78ef"
+red = "#ff5252"
+white = "#ffffff"
+yellow = "#ffff54"
+
+[colors.dim]
+black = "#686868"
+blue = "#6ec6ff"
+cyan = "#4dd0e1"
+green = "#cddc39"
+magenta = "#df78ef"
+red = "#ff5252"
+white = "#ffffff"
+yellow = "#ffff54"
+
+[colors.normal]
+black = "#000000"
+blue = "#6ec6ff"
+cyan = "#4dd0e1"
+green = "#cddc39"
+magenta = "#df78ef"
+red = "#ff5252"
+white = "#ffffff"
+yellow = "#e89e64"
+
+[colors.primary]
+background = "#000000"
+dim_foreground = "#ffffff"
+foreground = "#ffffff"
+
+[env]
+TERM = "xterm-256color"
+
+[font.normal]
+family = "DejaVuSansM Nerd Font"
+
+[scrolling]
+history = 0
+
+[window]
+decorations = "none"
+dynamic_title = false
+startup_mode = "Windowed"
