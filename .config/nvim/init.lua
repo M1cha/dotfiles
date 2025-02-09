@@ -291,6 +291,7 @@ vim.keymap.set("n", "<leader>h", require("hop").hint_words, { desc = "[G]it [S]t
 
 vim.filetype.add({
     extension = {
+        container = "systemd",
         overlay = "dts",
     },
 })
