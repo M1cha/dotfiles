@@ -47,6 +47,8 @@ require("lazy").setup({
     -- Detect tabstop and shiftwidth automatically
     "tpope/vim-sleuth",
 
+    "ron-rs/ron.vim",
+
     { "folke/which-key.nvim", opts = {} },
     { "numToStr/Comment.nvim", opts = {} },
 
