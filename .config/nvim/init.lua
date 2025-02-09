@@ -18,6 +18,8 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 vim.o.updatetime = 250
 
+vim.o.colorcolumn = "81"
+
 vim.o.clipboard = "unnamedplus"
 vim.o.mouse = "a"
 vim.o.termguicolors = true
